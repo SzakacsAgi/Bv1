@@ -13,3 +13,13 @@ A Blogi egy olyan alkalmazás ami egy blogot szimulál.
 # Technológiák  
 - backand oldalról springboot-ot 
 - frontend oldalról pedig html, css, javascript és bootstrap keresztrendszert használ
+
+# Projekt fordítása
+```
+./mvnw clean install  
+```
+
+# Projekt futtatása
+```
+./mvnw spring-boot:run  
+```
