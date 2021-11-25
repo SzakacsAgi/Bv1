@@ -6,3 +6,6 @@ spring:
   mvc:
     view:
       suffix: .html
+  web:
+    resources:
+      static-locations: classpath:/static/html, classpath:/static/css, classpath:/static/js
