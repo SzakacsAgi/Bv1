@@ -1,0 +1,15 @@
+header, footer{
+    background-color: aqua;
+}
+
+.cards{
+    margin: 30px 30px;
+}
+
+.title{
+    padding: 25px 0;
+    font-size: 3em;
+}
+p{
+    margin: 0;
+}

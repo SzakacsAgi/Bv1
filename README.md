@@ -19,7 +19,7 @@ A Blogi egy olyan alkalmazás ami egy blogot szimulál.
 ./mvnw clean install  
 ```
 
-# Projekt futtatása
+# Projekt futtatásamvn −version.
 ```
 ./mvnw spring-boot:run  
 ```
