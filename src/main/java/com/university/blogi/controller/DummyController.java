@@ -9,7 +9,6 @@ public class DummyController {
 
     @GetMapping(path = "/dummy")
     public ModelAndView test() {
-
         return new ModelAndView("index");
     }
 }
