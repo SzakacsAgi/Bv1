@@ -13,3 +13,7 @@ header, footer{
 p{
     margin: 0;
 }
+
+#footer{
+    position: fixed;
+}
