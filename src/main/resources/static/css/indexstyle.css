@@ -1,19 +1,21 @@
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 header, footer{
     background-color: aqua;
 }
 
 .cards{
-    margin: 30px 30px;
+    margin: 40px 30px;
 }
 
 .title{
     padding: 25px 0;
     font-size: 3em;
 }
-p{
-    margin: 0;
-}
-
-#footer{
-    position: fixed;
-}
+ footer{
+     margin-top:auto;
+ }
