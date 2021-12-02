@@ -15,7 +15,7 @@ public class BindingResultToValidationErrorResponseConverter implements Converte
     public ValidationErrorResponse convert(final BindingResult source) {
         final var data = source.getFieldErrors()
                 .stream()
-                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage, (firstKey, secondKey) -> firstKey));
         return new ValidationErrorResponse(data);
     }
 }
