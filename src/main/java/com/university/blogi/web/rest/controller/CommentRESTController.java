@@ -1,17 +1,19 @@
 package com.university.blogi.web.rest.controller;
 
 import com.university.blogi.service.CommentService;
-import com.university.blogi.service.exception.ArticleNotFoundException;
-import com.university.blogi.service.exception.DataMismatchException;
-import com.university.blogi.service.exception.PermissionDeniedException;
+import com.university.blogi.web.exception.RequestValidationException;
+import com.university.blogi.web.rest.request.CommentCreationRequest;
 import com.university.blogi.web.rest.request.CommentRemovalRequest;
 import com.university.blogi.web.rest.response.CommentResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.UUID;
 
 @RestController
@@ -34,39 +36,35 @@ public record CommentRESTController(CommentService commentService) {
         return ResponseEntity.noContent().build();
     }
 
-    @ExceptionHandler(ArticleNotFoundException.class)
-    private ResponseEntity<Void> handleArticleNotFoundException(final ArticleNotFoundException exception) {
-        final var articleId = exception.getId();
-        LOGGER.warn("Article is not found with id={}", articleId);
-        return notFoundResponse();
+    @PostMapping(path = "/api/articles/{articleId}/comments")
+    public ResponseEntity<CommentResponse> create(@PathVariable final UUID articleId,
+                                                  @RequestBody @Valid final CommentCreationRequest request,
+                                                  final BindingResult bindingResult) {
+        LOGGER.info("Receiving create comment request, articleId={} request={}", articleId, request);
+
+        if (hasValidationError(bindingResult)) {
+            throw new RequestValidationException(bindingResult);
+        }
+
+        final var authorName = request.authorName();
+        final var content = request.content();
+        final var securityCode = request.securityCode();
+
+        final var commentId = commentService.create(articleId, authorName, content, securityCode);
+
+        return ResponseEntity.created(createLocationWith(commentId)).build();
     }
 
-    @ExceptionHandler(DataMismatchException.class)
-    private ResponseEntity<Void> handleDataMismatchException(final DataMismatchException exception) {
-        final var articleId = exception.getArticleId();
-        final var commentId = exception.getCommentId();
-        LOGGER.warn("Data ids are not matching, articleId={} commentId={}", articleId, commentId);
-        return conflictResponse();
+    private boolean hasValidationError(final BindingResult bindingResult) {
+        return bindingResult.hasFieldErrors();
     }
 
-    @ExceptionHandler(PermissionDeniedException.class)
-    private ResponseEntity<Void> handlePermissionDeniedException(final PermissionDeniedException exception) {
-        final var articleId = exception.getArticleId();
-        final var commentId = exception.getCommentId();
-        final var operation = exception.getOperation();
-        LOGGER.warn("Operation={} is not allowed to be performed, articleId={} commentId={}", operation, articleId, commentId);
-        return forbiddenResponse();
+    private URI createLocationWith(final UUID commentId) {
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{commentId}")
+                .buildAndExpand(commentId)
+                .toUri();
     }
 
-    private ResponseEntity<Void> notFoundResponse() {
-        return ResponseEntity.notFound().build();
-    }
-
-    private ResponseEntity<Void> conflictResponse() {
-        return ResponseEntity.status(HttpStatus.CONFLICT).build();
-    }
-
-    private ResponseEntity<Void> forbiddenResponse() {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-    }
 }
