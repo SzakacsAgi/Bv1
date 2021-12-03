@@ -1,0 +1,80 @@
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a:visited, a:hover, a:active, a:link{
+    text-decoration:none;
+}
+
+p{
+    margin: 0;
+}
+
+.navigation a:visited{
+    color:#FF7851;
+}
+
+.navigation a:hover{
+    color: #FB3D28;
+}
+
+.dropdown-menu a:hover{
+    background-color: #fb3d285f;
+    color: #FF7851;
+}
+
+header{
+    background-color: #ff775146;
+}
+
+.title, .subtitle{
+    font-family: 'Yellowtail', cursive;
+    color: #FB3D28;
+    filter: none;
+}
+
+.title{
+    font-size:4em;
+}
+
+.subtitle{
+    font-size: 1em;
+}
+
+.header{
+    padding-top: 30px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+
+.navbar-brand, .nav-link{
+    color: #FF7851;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.navigation{
+    border-top: rgba(0, 0, 0, 0.138) solid 1px;
+    justify-content: space-between;
+}
+
+ footer{
+     margin-top:auto;
+     background-color: #ff77518b;
+     font-family: 'Yellowtail', cursive;
+     font-size: 1.2em;
+ }
+
+ footer i{
+     margin-right: 10px;
+ }
+
+ .instragram{
+     margin-left: 7px;
+ }
+
+ footer i:hover{
+    cursor: pointer;
+ }
+

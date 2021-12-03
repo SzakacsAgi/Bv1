@@ -7,6 +7,7 @@ import com.university.blogi.persistence.repository.CommentRepository;
 import com.university.blogi.persistence.repository.CommentSecurityCodeRepository;
 import com.university.blogi.service.CommentService;
 import com.university.blogi.service.exception.ArticleNotFoundException;
+import com.university.blogi.service.exception.CommentNotFoundException;
 import com.university.blogi.service.exception.DataMismatchException;
 import com.university.blogi.service.model.Comment;
 import com.university.blogi.service.verifier.DataMismatchVerifier;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -31,8 +33,20 @@ public record CommentServiceImpl(CommentRepository commentRepository,
     private static final String COMMENT_ORDER_FIELD = "creationDate";
 
     private static final String DELETE_OPERATION = "DELETE";
+    private static final String UPDATE_OPERATION = "UPDATE";
 
     private static final UUID NON_EXISTENT_COMMENT_ID = null;
+
+    @Override
+    public Optional<Comment> getByArticleIdAndCommentId(final UUID articleId, final UUID commentId) {
+        final var articleExists = articleRepository.existsById(articleId);
+
+        if (articleExists) {
+            return findByCommentId(commentId);
+        } else {
+            throw new DataMismatchException(articleId, commentId);
+        }
+    }
 
     @Override
     public List<Comment> getAllCommentsByArticleId(final UUID articleId) throws ArticleNotFoundException {
@@ -59,6 +73,19 @@ public record CommentServiceImpl(CommentRepository commentRepository,
     }
 
     @Override
+    public void update(final UUID articleId, final UUID commentId, final String authorName, final String content, final String securityCode) {
+        final var comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CommentNotFoundException(commentId));
+        dataMismatchVerifier.verify(articleId, comment);
+
+        final var savedSecurityCode = commentSecurityCodeRepository.findById(commentId);
+        securityCodeMismatchVerifier.verify(securityCode, savedSecurityCode, articleId, commentId, UPDATE_OPERATION);
+
+        updateFields(comment, authorName, content);
+        commentRepository.save(comment);
+    }
+
+    @Override
     public void delete(final UUID articleId, final UUID commentId, final String securityCode) {
         final var comment = commentRepository.findById(commentId);
         dataMismatchVerifier.verify(articleId, comment);
@@ -68,6 +95,11 @@ public record CommentServiceImpl(CommentRepository commentRepository,
 
         savedSecurityCode.ifPresent($ -> commentSecurityCodeRepository.deleteById(commentId));
         comment.ifPresent($ -> commentRepository.deleteById(commentId));
+    }
+
+    private Optional<Comment> findByCommentId(final UUID commentId) {
+        return commentRepository.findById(commentId)
+                .map(commentEntity -> conversionService.convert(commentEntity, Comment.class));
     }
 
     private List<Comment> findAllCommentsByArticleId(final UUID articleId) {
@@ -95,5 +127,10 @@ public record CommentServiceImpl(CommentRepository commentRepository,
         commentSecurityCodeRepository.save(commentSecurityCodeEntity);
 
         return commentId;
+    }
+
+    private void updateFields(CommentEntity commentEntity, final String authorName, final String content) {
+        commentEntity.setAuthorName(authorName);
+        commentEntity.setContent(content);
     }
 }

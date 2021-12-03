@@ -12,6 +12,10 @@ import java.util.UUID;
 @Component
 public record DataMismatchVerifier(ArticleRepository articleRepository) {
 
+    public void verify(final UUID articleId, final CommentEntity comment) throws DataMismatchException {
+        verify(articleId, Optional.ofNullable(comment));
+    }
+
     public void verify(final UUID articleId, final Optional<CommentEntity> comment) throws DataMismatchException {
         final var articleExists = articleRepository.existsById(articleId);
         final var articleDoesNotExist = !articleExists;
