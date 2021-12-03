@@ -15,5 +15,7 @@ public interface CommentService {
 
     UUID create(UUID articleId, String authorName, String content, String securityCode);
 
+    void update(UUID articleId, UUID commentId, String authorName, String content, String securityCode);
+
     void delete(UUID articleId, UUID commentId, String securityCode);
 }

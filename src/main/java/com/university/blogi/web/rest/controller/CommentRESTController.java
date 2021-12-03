@@ -6,6 +6,7 @@ import com.university.blogi.service.model.Comment;
 import com.university.blogi.web.exception.RequestValidationException;
 import com.university.blogi.web.rest.request.CommentCreationRequest;
 import com.university.blogi.web.rest.request.CommentRemovalRequest;
+import com.university.blogi.web.rest.request.CommentUpdateRequest;
 import com.university.blogi.web.rest.response.CommentResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,26 @@ public record CommentRESTController(CommentService commentService) {
         final var commentId = commentService.create(articleId, authorName, content, securityCode);
 
         return ResponseEntity.created(createLocationWith(commentId)).build();
+    }
+
+    @PutMapping(path = "/api/articles/{articleId}/comments/{commentId}")
+    public ResponseEntity<CommentResponse> update(@PathVariable final UUID articleId,
+                                                  @PathVariable final UUID commentId,
+                                                  @RequestBody @Valid final CommentUpdateRequest request,
+                                                  final BindingResult bindingResult) {
+        LOGGER.info("Receiving update comment request, articleId={} commentId={} request={}", articleId, commentId, request);
+
+        if (hasValidationError(bindingResult)) {
+            throw new RequestValidationException(bindingResult);
+        }
+
+        final var authorName = request.authorName();
+        final var content = request.content();
+        final var securityCode = request.securityCode();
+
+        commentService.update(articleId, commentId, authorName, content, securityCode);
+
+        return ResponseEntity.noContent().build();
     }
 
     private boolean hasValidationError(final BindingResult bindingResult) {

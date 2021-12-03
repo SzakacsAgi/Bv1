@@ -7,6 +7,7 @@ import com.university.blogi.persistence.repository.CommentRepository;
 import com.university.blogi.persistence.repository.CommentSecurityCodeRepository;
 import com.university.blogi.service.CommentService;
 import com.university.blogi.service.exception.ArticleNotFoundException;
+import com.university.blogi.service.exception.CommentNotFoundException;
 import com.university.blogi.service.exception.DataMismatchException;
 import com.university.blogi.service.model.Comment;
 import com.university.blogi.service.verifier.DataMismatchVerifier;
@@ -32,6 +33,7 @@ public record CommentServiceImpl(CommentRepository commentRepository,
     private static final String COMMENT_ORDER_FIELD = "creationDate";
 
     private static final String DELETE_OPERATION = "DELETE";
+    private static final String UPDATE_OPERATION = "UPDATE";
 
     private static final UUID NON_EXISTENT_COMMENT_ID = null;
 
@@ -68,6 +70,19 @@ public record CommentServiceImpl(CommentRepository commentRepository,
             throw new DataMismatchException(articleId, NON_EXISTENT_COMMENT_ID);
         }
 
+    }
+
+    @Override
+    public void update(final UUID articleId, final UUID commentId, final String authorName, final String content, final String securityCode) {
+        final var comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CommentNotFoundException(commentId));
+        dataMismatchVerifier.verify(articleId, comment);
+
+        final var savedSecurityCode = commentSecurityCodeRepository.findById(commentId);
+        securityCodeMismatchVerifier.verify(securityCode, savedSecurityCode, articleId, commentId, UPDATE_OPERATION);
+
+        updateFields(comment, authorName, content);
+        commentRepository.save(comment);
     }
 
     @Override
@@ -112,5 +127,10 @@ public record CommentServiceImpl(CommentRepository commentRepository,
         commentSecurityCodeRepository.save(commentSecurityCodeEntity);
 
         return commentId;
+    }
+
+    private void updateFields(CommentEntity commentEntity, final String authorName, final String content) {
+        commentEntity.setAuthorName(authorName);
+        commentEntity.setContent(content);
     }
 }
