@@ -9,4 +9,8 @@ import java.util.UUID;
 public interface CommentService {
 
     List<Comment> getAllCommentsByArticleId(UUID articleId) throws ArticleNotFoundException;
+
+    UUID create(UUID articleId, String authorName, String content, String securityCode);
+
+    void delete(UUID articleId, UUID commentId, String securityCode);
 }
