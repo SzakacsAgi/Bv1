@@ -4,9 +4,12 @@ import com.university.blogi.service.exception.ArticleNotFoundException;
 import com.university.blogi.service.model.Comment;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CommentService {
+
+    Optional<Comment> getByArticleIdAndCommentId(UUID articleId, UUID commentId);
 
     List<Comment> getAllCommentsByArticleId(UUID articleId) throws ArticleNotFoundException;
 

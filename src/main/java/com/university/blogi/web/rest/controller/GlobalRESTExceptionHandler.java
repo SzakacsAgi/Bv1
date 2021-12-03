@@ -1,6 +1,7 @@
 package com.university.blogi.web.rest.controller;
 
 import com.university.blogi.service.exception.ArticleNotFoundException;
+import com.university.blogi.service.exception.CommentNotFoundException;
 import com.university.blogi.service.exception.DataMismatchException;
 import com.university.blogi.service.exception.PermissionDeniedException;
 import com.university.blogi.web.exception.RequestValidationException;
@@ -22,6 +23,13 @@ public record GlobalRESTExceptionHandler(ConversionService conversionService) {
     private ResponseEntity<Void> handleArticleNotFoundException(final ArticleNotFoundException exception) {
         final var articleId = exception.getId();
         LOGGER.warn("Article is not found with id={}", articleId);
+        return notFoundResponse();
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    private ResponseEntity<Void> handleCommentNotFoundException(final CommentNotFoundException exception) {
+        final var commentId = exception.getId();
+        LOGGER.warn("Comment is not found with id={}", commentId);
         return notFoundResponse();
     }
 
