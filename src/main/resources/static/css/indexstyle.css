@@ -1,21 +1,6 @@
-body{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-header, footer{
-    background-color: aqua;
-}
-
 .cards{
     margin: 40px 30px;
 }
 
-.title{
-    padding: 25px 0;
-    font-size: 3em;
-}
- footer{
-     margin-top:auto;
- }
+
+
