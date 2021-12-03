@@ -1,6 +1,8 @@
 package com.university.blogi.web.rest.controller;
 
 import com.university.blogi.service.CommentService;
+import com.university.blogi.service.exception.CommentNotFoundException;
+import com.university.blogi.service.model.Comment;
 import com.university.blogi.web.exception.RequestValidationException;
 import com.university.blogi.web.rest.request.CommentCreationRequest;
 import com.university.blogi.web.rest.request.CommentRemovalRequest;
@@ -25,6 +27,13 @@ public record CommentRESTController(CommentService commentService) {
     public ResponseEntity<CommentResponse> retrieveAllById(@PathVariable final UUID articleId) {
         final var data = commentService.getAllCommentsByArticleId(articleId);
         return ResponseEntity.ok(new CommentResponse(data));
+    }
+
+    @GetMapping(path = "/api/articles/{articleId}/comments/{commentId}")
+    public ResponseEntity<Comment> retrieveById(@PathVariable final UUID articleId, @PathVariable final UUID commentId) {
+        final var data = commentService.getByArticleIdAndCommentId(articleId, commentId)
+                .orElseThrow(() -> new CommentNotFoundException(commentId));
+        return ResponseEntity.ok(data);
     }
 
     @DeleteMapping(path = "/api/articles/{articleId}/comments/{commentId}")

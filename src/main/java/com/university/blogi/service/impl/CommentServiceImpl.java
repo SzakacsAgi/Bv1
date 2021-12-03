@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,17 @@ public record CommentServiceImpl(CommentRepository commentRepository,
     private static final String DELETE_OPERATION = "DELETE";
 
     private static final UUID NON_EXISTENT_COMMENT_ID = null;
+
+    @Override
+    public Optional<Comment> getByArticleIdAndCommentId(final UUID articleId, final UUID commentId) {
+        final var articleExists = articleRepository.existsById(articleId);
+
+        if (articleExists) {
+            return findByCommentId(commentId);
+        } else {
+            throw new DataMismatchException(articleId, commentId);
+        }
+    }
 
     @Override
     public List<Comment> getAllCommentsByArticleId(final UUID articleId) throws ArticleNotFoundException {
@@ -68,6 +80,11 @@ public record CommentServiceImpl(CommentRepository commentRepository,
 
         savedSecurityCode.ifPresent($ -> commentSecurityCodeRepository.deleteById(commentId));
         comment.ifPresent($ -> commentRepository.deleteById(commentId));
+    }
+
+    private Optional<Comment> findByCommentId(final UUID commentId) {
+        return commentRepository.findById(commentId)
+                .map(commentEntity -> conversionService.convert(commentEntity, Comment.class));
     }
 
     private List<Comment> findAllCommentsByArticleId(final UUID articleId) {
