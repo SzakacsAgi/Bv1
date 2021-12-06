@@ -26,12 +26,21 @@ function createPreviewContent(article, index){
     let button = createNode("a");
     button.classList.add("btn");
     button.classList.add("btn-primary");
-    button.href.innerHTML = `http://localhost:8080/blogi/api/articles/${article.id}`;
+    button.href = "http://localhost:8080/blogi/article";
     button.innerHTML = "Elolvasom";
+    button.id = "article-button"+index;
+    button.target = "_blank";
     append(div, img);
     append(div, cardBody);
     append(cardBody, title);
     append(cardBody, previewContent);
     append(cardBody, date);
     append(cardBody, button);
-}
+    var articleButton = document.getElementById("article-button"+index);
+    articleButton.onclick = function() { localStorage.setItem(id, article.id); var id = localStorage.getItem(id);};
+ };
+
+
+
+
+
