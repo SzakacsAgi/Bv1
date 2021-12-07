@@ -17,7 +17,3 @@ function loadArticleData() {
 }
 
 loadArticleData();
-
-
-
-
