@@ -6,6 +6,16 @@ function append(parent, el) {
     return parent.appendChild(el);
 }
 
+function addAttributesToButton(button, index){
+    const url = "http://localhost:8080/blogi/article";
+    button.classList.add("btn");
+    button.classList.add("btn-primary");
+    button.href = url;
+    button.innerHTML = "Elolvasom";
+    button.id = "article-button"+index;
+    button.target = "_blank";
+}
+
 function createPreviewContent(article, index){
     const div = document.getElementById('card-image' + index);
     let img = createNode('img');
@@ -24,12 +34,7 @@ function createPreviewContent(article, index){
     date.classList.add("creation-date");
     date.innerHTML = `Megjelenés: ${article.creationDate}`;
     let button = createNode("a");
-    button.classList.add("btn");
-    button.classList.add("btn-primary");
-    button.href = "http://localhost:8080/blogi/article";
-    button.innerHTML = "Elolvasom";
-    button.id = "article-button"+index;
-    button.target = "_blank";
+    addAttributesToButton(button, index);
     append(div, img);
     append(div, cardBody);
     append(cardBody, title);
@@ -37,10 +42,5 @@ function createPreviewContent(article, index){
     append(cardBody, date);
     append(cardBody, button);
     var articleButton = document.getElementById("article-button"+index);
-    articleButton.onclick = function() { localStorage.setItem(id, article.id); var id = localStorage.getItem(id);};
+    articleButton.onclick = function(){ localStorage.setItem(id, article.id); var id = localStorage.getItem(id);};
  };
-
-
-
-
-
