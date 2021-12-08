@@ -42,5 +42,5 @@ function createPreviewContent(article, index){
     append(cardBody, date);
     append(cardBody, button);
     var articleButton = document.getElementById("article-button"+index);
-    articleButton.onclick = function(){ localStorage.setItem(id, article.id); var id = localStorage.getItem(id);};
+    articleButton.onclick = function(){ localStorage.setItem("id", article.id);};
  };
