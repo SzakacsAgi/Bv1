@@ -1,6 +1,3 @@
-var imported = document.createElement("script");
-imported.src = "createArticleContent.js";
-document.head.appendChild(imported);
 
 function loadArticleData() {
    var id = localStorage.getItem("id");
@@ -8,7 +5,6 @@ function loadArticleData() {
     fetch(url)
     .then((resp) => resp.json())
     .then(function(data) {
-     console.log(data);
      createArticleContent(data);
   })
   .catch(function(error) {

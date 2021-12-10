@@ -1,7 +1,3 @@
-var imported = document.createElement("script");
-imported.src = "createPreviewContent.js";
-document.head.appendChild(imported);
-
 function loadHomePageData() {
     const url = 'http://localhost:8080/blogi/api/articles';
     fetch(url)
