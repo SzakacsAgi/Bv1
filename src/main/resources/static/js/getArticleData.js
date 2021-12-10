@@ -1,3 +1,4 @@
+
 function loadArticleData() {
    var id = localStorage.getItem("id");
     const url = 'http://localhost:8080/blogi/api/articles/' + id;
