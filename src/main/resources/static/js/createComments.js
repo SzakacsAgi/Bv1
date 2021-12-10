@@ -13,16 +13,9 @@ function createCommentsContainer(parent){
     return container;
 }
 
-function createDivOfCommentTitle(parent){
-    let divOfCommentTitle = createNode("div");
-    divOfCommentTitle.classList.add("comment-title");
-    divOfCommentTitle.id = "comment-title";
-    append(parent, divOfCommentTitle);
-}
-
 function createDivOfOneComment(parent){
     let divOfOneComment = createNode("div");
-    divOfOneComment.classList.add("card", "p-3", "my-2");
+    divOfOneComment.classList.add("card", "p-3", "my-1");
     append(parent, divOfOneComment);
     return divOfOneComment;
 }
@@ -68,33 +61,18 @@ function createButtonsDiv(parent){
 }
 
 function addButtons(parent, id){
-    if(id == "delete"){
-        let deleteButton = createNode("button");
-        deleteButton.classList.add("btn", "btn-primary", "me-2");
-        deleteButton.type = "button";
-        deleteButton.id = "delete";
-        append(parent, deleteButton);
-        return deleteButton;
-    }else if(id == "update"){
-        let updateButton = createNode("button");
-        updateButton.classList.add("btn", "btn-primary");
-        updateButton.type = "button";
-        updateButton.id = "update";
-        append(parent, updateButton);
-        return updateButton;
-    }
+        let button = createNode("button");
+        button.classList.add("btn", "btn-primary", "me-2");
+        button.type = "button";
+        button.id = `${id}`;
+        append(parent, button);
+        return button;
 }
 
-function addDeleteIcon(parent){
-    let deleteIcon = createNode("i");
-    deleteIcon.classList.add("fas", "fa-trash-alt");
-    append(parent, deleteIcon);
-}
-
-function addUpdateIcon(parent){
-    let updateIcon = createNode("i");
-    updateIcon.classList.add("fas", "fa-edit");
-    append(parent, updateIcon);
+function addIcons(parent, iconType){
+    let icon = createNode("i");
+    icon.classList.add("fas", `${iconType}`);
+    append(parent, icon);
 }
 
 function createCommentTitleDiv(parent){
@@ -104,17 +82,15 @@ function createCommentTitleDiv(parent){
     return commentTitleDiv;
 }
 
-function printHowManyComments(parent, howManyComments){
+function addHowManyComments(parent, howManyComments){
     let label = createNode("h5");
     label.innerHTML = "Kommentek("+ `${howManyComments}` +")"
     append(parent, label);
 }
 
-function createComments(comment, index){
-    if(index == 0){
+function createComments(comment, howManyComments){
         const comments = document.getElementById("comments");
         let container = createCommentsContainer(comments);
-        createDivOfCommentTitle(container);
         let divOfOneComment = createDivOfOneComment(container);
         let creationDateAndCommentAuthorDiv = createCreationDateAndCommentAuthorDiv(divOfOneComment);
         let containerOfAuthorName = createContainerOfAuthorName(creationDateAndCommentAuthorDiv);
@@ -124,28 +100,14 @@ function createComments(comment, index){
         buttonsDiv = createButtonsDiv(divOfOneComment);
         let deleteButton = addButtons(buttonsDiv, "delete");
         let updateButton = addButtons(buttonsDiv, "update");
-        addDeleteIcon(deleteButton);
-        addUpdateIcon(updateButton);
-    }
-    else{
-         const comments = document.getElementById("comments");
-         let container = createCommentsContainer(comments);
-         let divOfOneComment = createDivOfOneComment(container);
-         let creationDateAndCommentAuthorDiv = createCreationDateAndCommentAuthorDiv(divOfOneComment);
-         let containerOfAuthorName = createContainerOfAuthorName(creationDateAndCommentAuthorDiv);
-         addAuthorName(comment, containerOfAuthorName);
-         addCreationDate(comment, creationDateAndCommentAuthorDiv);
-         addContent(comment, divOfOneComment);
-         buttonsDiv = createButtonsDiv(divOfOneComment);
-         let deleteButton = addButtons(buttonsDiv, "delete");
-         let updateButton = addButtons(buttonsDiv, "update");
-         addDeleteIcon(deleteButton);
-         addUpdateIcon(updateButton);
-    }
+        addIcons(deleteButton, "fa-trash-alt");
+        addIcons(updateButton, "fa-edit");
 }
 
-function createCommentTitle(howManyComments) {
-    let commentTitle = document.getElementById("comment-title");
-    let commentTitleDiv = createCommentTitleDiv(commentTitle);
-    printHowManyComments(commentTitleDiv, howManyComments);
+function createCommentTitle(howManyComments, whichComment) {
+    if(whichComment == 0 && howManyComments > 0){
+        const divOfCommentTitle = document.getElementById("divOfCommentTitle")
+        //let commentTitleDiv = createCommentTitleDiv(divOfCommentTitle);
+        addHowManyComments(divOfCommentTitle, howManyComments);
+    }
 }
