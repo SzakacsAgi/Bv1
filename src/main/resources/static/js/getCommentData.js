@@ -6,16 +6,12 @@
     .then(function(data) {
     let comments = data.comments;
     let howManyComments = comments.length;
-    let index = 0;
-     comments.map(function(comment) {
-        createComments(comment, index);
-        index += 1;
-        console.log(index);
+    let whichComment = 0;
+    createCommentTitle(howManyComments, whichComment);
+    return comments.map(function(comment) {
+        createComments(comment, whichComment, howManyComments);
+        whichComment += 1;
     })
-    if(howManyComments > 0){
-        createCommentTitle(howManyComments);
-    }
-    return;
     })
     .catch(function(error) {
         console.log(error);
