@@ -3,7 +3,7 @@ var clickedId = sessionStorage.getItem("clickedId");
 function useModalDeleteButton(clickedId){
 document.getElementById("delete").onclick = function() {
      sendHTTPDeleteRequest(clickedId);
-     document.getElementById('security-code').innerHTML = '';
+     document.getElementById('security-code-delete').innerHTML = '';
     }
 }
 
@@ -20,7 +20,7 @@ const deleteMethod = {
 }
 
 function sendHTTPDeleteRequest(clickedId) {
-    var typedSecurityCode = document.getElementById("security-code").value;
+    var typedSecurityCode = document.getElementById("security-code-delete").value;
     var articleId = sessionStorage.getItem("articleId");
     console.log("ArticleId: "+ articleId);
     var clickedIdVar = sessionStorage.getItem("clickedId");
@@ -41,7 +41,7 @@ function sendHTTPDeleteRequest(clickedId) {
         }
         else if(response.status == 403){
             alert("Hibás security code!");
-            document.getElementById('security-code').innerHTML = '';
+            document.getElementById('security-code-delete').innerHTML = '';
         }
     })
     .catch(err => console.log(err))
