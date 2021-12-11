@@ -3,7 +3,7 @@ var clickedId = sessionStorage.getItem("clickedId");
 function useModalUpdateButton(clickedId){
 document.getElementById("update").onclick = function() {
      sendHTTPUpdateRequest(clickedId);
-     document.getElementById('security-code').innerHTML = '';
+     document.getElementById('security-code-update').innerHTML = '';
     }
 }
 
@@ -43,7 +43,7 @@ function sendHTTPUpdateRequest(clickedId) {
     fetch(url, updateMethod)
     .then(response => {
         if (response.status == 204) {
-
+            partialReload();
         }
         else if(response.status == 403){
             alert("Hibás security code!");

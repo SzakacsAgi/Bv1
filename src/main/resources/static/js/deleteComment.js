@@ -35,9 +35,7 @@ function sendHTTPDeleteRequest(clickedId) {
     fetch(url, deleteMethod)
     .then(response => {
         if (response.status == 204) {
-            document.getElementById('comments').innerHTML = '';
-            document.getElementById('divOfCommentTitle').innerHTML = '';
-            loadCommentsData();
+            partialReload();
         }
         else if(response.status == 403){
             alert("Hibás security code!");
