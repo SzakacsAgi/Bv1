@@ -56,6 +56,7 @@ function addContent(comment, parent){
 function createButtonsDiv(parent){
     let buttonsDiv = createNode("div");
     buttonsDiv.classList.add("action", "d-flex", "mt-2", "align-items-center");
+    buttonsDiv.id = "buttons-div;"
     append(parent, buttonsDiv);
     return buttonsDiv;
 }
@@ -67,6 +68,18 @@ function addButtons(parent, id){
         button.id = `${id}`;
         append(parent, button);
         return button;
+}
+
+function addModalToButton(id) {
+    document.getElementById(id).setAttribute("data-bs-toggle", "modal");
+    document.getElementById(id).setAttribute("data-bs-target", "#exampleModal");
+}
+
+function addIdOfDeleteButtonToSessionStorage(clickedId) {
+    console.log("clicked button id: "+clickedId)
+    document.getElementById(clickedId).onclick = function() {
+        sessionStorage.setItem("clickedId", clickedId);
+    }
 }
 
 function addIcons(parent, iconType){
@@ -88,7 +101,19 @@ function addHowManyComments(parent, howManyComments){
     append(parent, label);
 }
 
-function createComments(comment, howManyComments){
+function createDeleteButton(parent, deleteButtonId){
+            let deleteButton = addButtons(parent, deleteButtonId);
+            addIcons(deleteButton, "fa-trash-alt");
+            addModalToButton(deleteButtonId);
+            addIdOfDeleteButtonToSessionStorage(deleteButtonId);
+        }
+
+function createUpdateButton(parent, updateButtonId){
+            let updateButton = addButtons(parent, updateButtonId);
+            addIcons(updateButton, "fa-edit");
+}
+
+function createComments(comment, whichComment, howManyComments){
         const comments = document.getElementById("comments");
         let container = createCommentsContainer(comments);
         let divOfOneComment = createDivOfOneComment(container);
@@ -98,16 +123,16 @@ function createComments(comment, howManyComments){
         addCreationDate(comment, creationDateAndCommentAuthorDiv);
         addContent(comment, divOfOneComment);
         buttonsDiv = createButtonsDiv(divOfOneComment);
-        let deleteButton = addButtons(buttonsDiv, "delete");
-        let updateButton = addButtons(buttonsDiv, "update");
-        addIcons(deleteButton, "fa-trash-alt");
-        addIcons(updateButton, "fa-edit");
+        let deleteButtonId = "delete" + whichComment;
+        createDeleteButton(buttonsDiv, deleteButtonId);
+        let updateButtonId = "update" + whichComment;
+        createUpdateButton(buttonsDiv, updateButtonId);
+
 }
 
 function createCommentTitle(howManyComments, whichComment) {
     if(whichComment == 0 && howManyComments > 0){
         const divOfCommentTitle = document.getElementById("divOfCommentTitle")
-        //let commentTitleDiv = createCommentTitleDiv(divOfCommentTitle);
         addHowManyComments(divOfCommentTitle, howManyComments);
     }
 }

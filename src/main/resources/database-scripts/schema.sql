@@ -2,7 +2,7 @@ CREATE TABLE ARTICLES (
   id UUID NOT NULL,
   title VARCHAR(250) NOT NULL,
   author_name VARCHAR(250) NOT NULL,
-  preview_content VARCHAR(200) NOT NULL,
+  preview_content VARCHAR(500) NOT NULL,
   content VARCHAR(500) NOT NULL,
   image_url VARCHAR(250) NOT NULL,
   creation_date DATETIME NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE COMMENTS (
   id UUID NOT NULL,
   article_id UUID NOT NULL,
   author_name VARCHAR(100) NOT NULL,
-  content VARCHAR(250) NOT NULL,
+  content VARCHAR(500) NOT NULL,
   creation_date DATETIME NOT NULL,
 
   PRIMARY KEY(id),

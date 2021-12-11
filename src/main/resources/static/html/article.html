@@ -15,9 +15,11 @@
 
     <!-- SCRIPTS -->
     <script type="text/javascript" src="createArticleContent.js" ></script>
+    <script type="text/javascript" src="sessionSynchronizer.js" ></script>
     <script type="text/javascript" src="getArticleData.js" ></script>
     <script type="text/javascript" src="createComments.js" ></script>
     <script type="text/javascript" src="getCommentData.js" ></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
             integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
             crossorigin="anonymous" async></script>
@@ -92,6 +94,25 @@
 
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">A törléshez add meg a létrehozásnál használt biztonsági kódod!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <textarea name="" id="security-code" cols="60" rows="2"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="delete" type="button" class="btn btn-primary" data-bs-dismiss="modal">Törlés</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégse</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="text-center">
     Kövess minket:
@@ -100,6 +121,8 @@
     <i class="fab fa-twitter"></i>
     <i class="fab fa-tiktok"></i>
 </footer>
+
+<script type="text/javascript" src="deleteComment.js" ></script>
 
 </body>
 
