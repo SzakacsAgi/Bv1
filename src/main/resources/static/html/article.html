@@ -18,7 +18,7 @@
     <script type="text/javascript" src="sessionSynchronizer.js" ></script>
     <script type="text/javascript" src="getArticleData.js" ></script>
     <script type="text/javascript" src="backFillCommentData.js" ></script>
-    <script type="text/javascript" src="createComments.js" ></script>
+    <script type="text/javascript" src="getComments.js" ></script>
     <script type="text/javascript" src="getCommentData.js" ></script>
     <script type="text/javascript" src="partialReload.js" ></script>
 
@@ -130,6 +130,7 @@
             <div class="modal-body">
                 <p>Neve:</p>
                 <textarea name="" id="comment-name" cols="60" rows="2"></textarea>
+                <p id="commentNotMatch"></p>
                 <p>Új comment:</p>
                 <textarea name="" id="comment-content" cols="60" rows="2"></textarea>
                 <p>A létrehozásnál használt security code:</p>
@@ -142,6 +143,28 @@
         </div>
     </div>
 </div>
+<!-- Create Comments -->
+<div class="container" style="width:95%">
+    <p class="create-comment-label mx-1 fs-2 mb-3 mt-3">Szólj hozzá Te is!</p>
+    <div class="registration-form">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control item p-3 mb-3" id="form-author-name" placeholder="Add meg, hogy milyen néven szeretnél megjelenni">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item p-3 mb-3" id="form-content" placeholder="A kommented tartalma">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item p-3" id="form-security-code" placeholder="Addj meg egy security-code-ot">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary mt-3 mb-3" id="create">Hozzászólok</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 
 
 <!-- FOOTER -->
@@ -154,7 +177,9 @@
 </footer>
 
 <script type="text/javascript" src="deleteComment.js" ></script>
+<script type="text/javascript" src="commentFieldCheck.js" ></script>
 <script type="text/javascript" src="updateComment.js" ></script>
+<script type="text/javascript" src="createComment.js" ></script>
 </body>
 
 </html>
