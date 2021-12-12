@@ -62,23 +62,30 @@ function createButtonsDiv(parent){
 }
 
 function addButtons(parent, id){
-        let button = createNode("button");
-        button.classList.add("btn", "btn-primary", "me-2");
-        button.type = "button";
-        button.id = `${id}`;
-        append(parent, button);
-        return button;
+    let button = createNode("button");
+    button.classList.add("btn", "btn-primary", "me-2");
+    button.type = "button";
+    button.id = `${id}`;
+    append(parent, button);
+    return button;
 }
 
-function addModalToButton(id) {
+function addModalToButton(id, dataBsTarget) {
     document.getElementById(id).setAttribute("data-bs-toggle", "modal");
-    document.getElementById(id).setAttribute("data-bs-target", "#exampleModal");
+    document.getElementById(id).setAttribute("data-bs-target", dataBsTarget);
 }
 
 function addIdOfDeleteButtonToSessionStorage(clickedId) {
-    console.log("clicked button id: "+clickedId)
+    console.log("clicked delete id: "+clickedId)
     document.getElementById(clickedId).onclick = function() {
         sessionStorage.setItem("clickedId", clickedId);
+    }
+}
+
+function addIdOfUpdateButtonToSessionStorage(clickedId, comment){
+    document.getElementById(clickedId).onclick = function() {
+        sessionStorage.setItem("clickedId", clickedId);
+        backFillCommentData(comment);
     }
 }
 
@@ -102,32 +109,33 @@ function addHowManyComments(parent, howManyComments){
 }
 
 function createDeleteButton(parent, deleteButtonId){
-            let deleteButton = addButtons(parent, deleteButtonId);
-            addIcons(deleteButton, "fa-trash-alt");
-            addModalToButton(deleteButtonId);
-            addIdOfDeleteButtonToSessionStorage(deleteButtonId);
-        }
+    let deleteButton = addButtons(parent, deleteButtonId);
+    addIcons(deleteButton, "fa-trash-alt");
+    addModalToButton(deleteButtonId, "#deleteModal");
+    addIdOfDeleteButtonToSessionStorage(deleteButtonId);
+}
 
-function createUpdateButton(parent, updateButtonId){
-            let updateButton = addButtons(parent, updateButtonId);
-            addIcons(updateButton, "fa-edit");
+function createUpdateButton(parent, updateButtonId, deleteButtonId, comment){
+    let updateButton = addButtons(parent, updateButtonId);
+    addIcons(updateButton, "fa-edit");
+    addModalToButton(updateButtonId, "#updateModal");
+    addIdOfUpdateButtonToSessionStorage(updateButtonId, comment);
 }
 
 function createComments(comment, whichComment, howManyComments){
-        const comments = document.getElementById("comments");
-        let container = createCommentsContainer(comments);
-        let divOfOneComment = createDivOfOneComment(container);
-        let creationDateAndCommentAuthorDiv = createCreationDateAndCommentAuthorDiv(divOfOneComment);
-        let containerOfAuthorName = createContainerOfAuthorName(creationDateAndCommentAuthorDiv);
-        addAuthorName(comment, containerOfAuthorName);
-        addCreationDate(comment, creationDateAndCommentAuthorDiv);
-        addContent(comment, divOfOneComment);
-        buttonsDiv = createButtonsDiv(divOfOneComment);
-        let deleteButtonId = "delete" + whichComment;
-        createDeleteButton(buttonsDiv, deleteButtonId);
-        let updateButtonId = "update" + whichComment;
-        createUpdateButton(buttonsDiv, updateButtonId);
-
+    const comments = document.getElementById("comments");
+    let container = createCommentsContainer(comments);
+    let divOfOneComment = createDivOfOneComment(container);
+    let creationDateAndCommentAuthorDiv = createCreationDateAndCommentAuthorDiv(divOfOneComment);
+    let containerOfAuthorName = createContainerOfAuthorName(creationDateAndCommentAuthorDiv);
+    addAuthorName(comment, containerOfAuthorName);
+    addCreationDate(comment, creationDateAndCommentAuthorDiv);
+    addContent(comment, divOfOneComment);
+    buttonsDiv = createButtonsDiv(divOfOneComment);
+    let deleteButtonId = "delete" + whichComment;
+    createDeleteButton(buttonsDiv, deleteButtonId);
+    let updateButtonId = "update" + whichComment;
+    createUpdateButton(buttonsDiv, updateButtonId, deleteButtonId, comment);
 }
 
 function createCommentTitle(howManyComments, whichComment) {
