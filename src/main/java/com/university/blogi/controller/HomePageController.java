@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomePageController {
 
     @GetMapping(path = "/home")
-    public ModelAndView test() {
+    public ModelAndView loadHomePage() {
         return new ModelAndView("homePage");
     }
 }
