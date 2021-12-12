@@ -1,4 +1,3 @@
-
 function loadArticleData() {
    var id = sessionStorage.getItem("articleId");
     const url = 'http://localhost:8080/blogi/api/articles/' + id;

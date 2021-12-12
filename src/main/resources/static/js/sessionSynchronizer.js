@@ -4,12 +4,11 @@ function sync() {
       var value = localStorage.getItem(key);
       sessionStorage.setItem(key, value);
       localStorage.clear();
-
     }
 }
 
 function storeCommentIds(idMap) {
     idMap.forEach (function(value, key) {
-      sessionStorage.setItem(key, value);
+        sessionStorage.setItem(key, value);
     })
 }

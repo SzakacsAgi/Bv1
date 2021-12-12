@@ -3,16 +3,16 @@ function loadHomePageData() {
     fetch(url)
     .then((resp) => resp.json())
     .then(function(data) {
-     let articles_data = data.articles;
-     let index = 0;
-     return articles_data.map(function(article) {
-        createPreviewContent(article, index);
-        index += 1;
-  })
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+         let articles_data = data.articles;
+         let index = 0;
+         return articles_data.map(function(article) {
+            createPreviewContent(article, index);
+            index += 1;
+         })
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
 }
 
 loadHomePageData();

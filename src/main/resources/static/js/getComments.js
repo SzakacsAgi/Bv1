@@ -76,7 +76,6 @@ function addModalToButton(id, dataBsTarget) {
 }
 
 function addIdOfDeleteButtonToSessionStorage(clickedId) {
-    console.log("clicked delete id: "+clickedId)
     document.getElementById(clickedId).onclick = function() {
         sessionStorage.setItem("clickedId", clickedId);
     }
@@ -85,7 +84,6 @@ function addIdOfDeleteButtonToSessionStorage(clickedId) {
 function addIdOfUpdateButtonToSessionStorage(clickedId, comment){
     document.getElementById(clickedId).onclick = function() {
         sessionStorage.setItem("clickedId", clickedId);
-        backFillCommentData(comment);
     }
 }
 
