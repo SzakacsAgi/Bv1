@@ -32,7 +32,7 @@ function sendHTTPCreateRequest() {
             partialReload();
             resetCreateCommentFormData();
         } else if(response.status == 400) {
-            alert("Valamelyik mezőt rosszul töltötted ki!\nA név nem lehet üres, a tartalom és a név legalább két karakter kell legyen!");
+            alert("Valamelyik mezőt rosszul töltötted ki!\nA név nem lehet üres, a tartalom és a security-code-nak legalább két karakter kell legyen!");
         }
     })
     .catch(err => console.log(err))

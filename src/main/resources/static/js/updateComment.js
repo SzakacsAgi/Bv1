@@ -43,7 +43,7 @@ function sendHTTPUpdateRequest(clickedId) {
             alert("Hibás security code!");
             document.getElementById('security-code-update').innerHTML = '';
         }else if(response.status == 400){
-            alert("Valamelyik mezőt rosszul töltötted ki!\nA név nem lehet üres, a tartalom és a név legalább két karakter kell legyen!");
+            alert("Valamelyik mezőt rosszul töltötted ki!\nA név nem lehet üres, a tartalom és a security-code-nak legalább két karakter kell legyen!");
             document.getElementById('security-code-update').innerHTML = '';
             document.getElementById('comment-name').innerHTML = '';
             document.getElementById('comment-content').innerHTML = '';
