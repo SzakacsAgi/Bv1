@@ -8,7 +8,6 @@
     let comments = data.comments;
     let howManyComments = comments.length;
     let whichComment = 0;
-    console.log(comments);
     const commentIdMap = new Map();
     createCommentTitle(howManyComments, whichComment);
     comments.map(function(comment) {

@@ -11,19 +11,16 @@ var createCommentRequest = {
 };
 
 const createMethod = {
- method: 'POST',
- headers: {
-  'Content-type': 'application/json; charset=UTF-8'
- },
- body: JSON.stringify(createCommentRequest)
+   method: 'POST',
+   headers: {
+       'Content-type': 'application/json; charset=UTF-8'
+   },
+   body: JSON.stringify(createCommentRequest)
 }
 
 function sendHTTPCreateRequest() {
     var articleId = sessionStorage.getItem("articleId");
-    console.log("ArticleId: "+ articleId);
     var url = "http://localhost:8080/blogi/api/articles/" + articleId + "/comments/";
-    console.log(url);
-
     populateCreateCommentRequest();
     createMethod.body = JSON.stringify(createCommentRequest);
     fetch(url, createMethod)
