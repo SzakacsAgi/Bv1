@@ -4,10 +4,11 @@ function loadHomePageData() {
     .then((resp) => resp.json())
     .then(function(data) {
          let articles_data = data.articles;
-         let index = 0;
+         let whichArticle = 0;
          return articles_data.map(function(article) {
-            createPreviewContent(article, index);
-            index += 1;
+            createPreviewContent(article, whichArticle);
+            articleButtonOnClickListener(article, whichArticle);
+            whichArticle += 1;
          })
     })
     .catch(function(error) {

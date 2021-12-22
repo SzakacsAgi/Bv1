@@ -56,7 +56,7 @@ function addContent(comment, parent){
 function createButtonsDiv(parent){
     let buttonsDiv = createNode("div");
     buttonsDiv.classList.add("action", "d-flex", "mt-2", "align-items-center");
-    buttonsDiv.id = "buttons-div;"
+    buttonsDiv.id = "buttons-div";
     append(parent, buttonsDiv);
     return buttonsDiv;
 }
@@ -102,7 +102,7 @@ function createCommentTitleDiv(parent){
 
 function addHowManyComments(parent, howManyComments){
     let label = createNode("h5");
-    label.innerHTML = "Kommentek("+ `${howManyComments}` +")"
+    label.innerHTML = "Kommentek("+ `${howManyComments}` +")";
     append(parent, label);
 }
 
@@ -138,7 +138,7 @@ function createComments(comment, whichComment, howManyComments){
 
 function createCommentTitle(howManyComments, whichComment) {
     if(whichComment == 0 && howManyComments > 0){
-        const divOfCommentTitle = document.getElementById("divOfCommentTitle")
+        const divOfCommentTitle = document.getElementById("divOfCommentTitle");
         addHowManyComments(divOfCommentTitle, howManyComments);
     }
 }
