@@ -1,0 +1,55 @@
+#article{
+    width: 70%;
+    margin: 0 auto;
+}
+
+img{
+    width: 70%;
+    height: 50%;
+}
+
+.container, image-box{
+    margin: 0 auto;
+}
+
+.articleContainer{
+    /*border-bottom: 2px solid #fb3d285f;*/
+    padding-bottom: 50px;
+}
+
+.DivOfCommentTitle{
+    border-top: 2px solid #fb3d285f;
+}
+
+.btn{
+    background-color: #fb3d285f;
+}
+
+.btn,
+.btn:focus,
+.btn:active,
+.btn:hover{
+     border: #fb3d285f 1px solid;
+     box-shadow: none;
+     background-color: #fb3d285f;
+     color: black;
+}
+
+.img-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.date-and-comment-author-div{
+    margin-bottom: 7px;
+}
+
+.author{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.articleTitle{
+    font-family: 'Lobster Two', cursive;
+}

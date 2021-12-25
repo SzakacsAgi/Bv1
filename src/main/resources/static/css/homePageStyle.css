@@ -21,10 +21,13 @@
 }
 
  .myButton:focus,
- .myButton:active,
- .myButton:focus {
+ .myButton:active
+ {
      border: #fb3d285f 1px solid;
      box-shadow: none;
  }
 
+.card-title{
+    font-family: 'Lobster Two', cursive;
+}
 

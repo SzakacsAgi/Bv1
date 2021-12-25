@@ -22,7 +22,7 @@ function createDivOfOneComment(parent){
 
 function createCreationDateAndCommentAuthorDiv(parent){
     let creationDateAndCommentAuthorDiv = createNode("div");
-    creationDateAndCommentAuthorDiv.classList.add("d-flex", "justify-content-between", "align-items-center");
+    creationDateAndCommentAuthorDiv.classList.add("d-flex", "justify-content-between", "align-items-center", "date-and-comment-author-div");
     append(parent, creationDateAndCommentAuthorDiv);
     return creationDateAndCommentAuthorDiv;
 }
@@ -36,7 +36,7 @@ function createContainerOfAuthorName(parent){
 
 function addAuthorName(comment, parent){
     let authorNameDiv = createNode("small");
-    authorNameDiv.classList.add("font-weight-bold", "text-primary");
+    authorNameDiv.classList.add("user-name", "fw-bold");
     authorNameDiv.innerHTML = `${comment.authorName}`;
     append(parent, authorNameDiv);
 }
@@ -44,6 +44,7 @@ function addAuthorName(comment, parent){
 function addCreationDate(comment, parent){
     let creationDateDiv = createNode("small");
     creationDateDiv.innerHTML = `${comment.creationDate}`;
+    creationDateDiv.classList.add("comment-creation-date", "fst-italic");
     append(parent, creationDateDiv);
 }
 
@@ -63,7 +64,7 @@ function createButtonsDiv(parent){
 
 function addButtons(parent, id){
     let button = createNode("button");
-    button.classList.add("btn", "btn-primary", "me-2");
+    button.classList.add("btn", "me-2");
     button.type = "button";
     button.id = `${id}`;
     append(parent, button);
@@ -101,8 +102,9 @@ function createCommentTitleDiv(parent){
 }
 
 function addHowManyComments(parent, howManyComments){
-    let label = createNode("h5");
+    let label = createNode("h2");
     label.innerHTML = "Kommentek("+ `${howManyComments}` +")";
+    label.classList.add("fst-italic");
     append(parent, label);
 }
 
