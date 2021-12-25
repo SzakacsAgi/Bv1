@@ -3,7 +3,7 @@ CREATE TABLE ARTICLES (
   title VARCHAR(250) NOT NULL,
   author_name VARCHAR(250) NOT NULL,
   preview_content VARCHAR(500) NOT NULL,
-  content VARCHAR(500) NOT NULL,
+  content VARCHAR(10000) NOT NULL,
   image_url VARCHAR(250) NOT NULL,
   creation_date DATETIME NOT NULL,
 

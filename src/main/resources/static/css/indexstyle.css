@@ -20,5 +20,11 @@
     margin: 0 auto;
 }
 
+ .myButton:focus,
+ .myButton:active,
+ .myButton:focus {
+     border: #fb3d285f 1px solid;
+     box-shadow: none;
+ }
 
 
