@@ -1,0 +1,33 @@
+.cards{
+    margin: 10px 0px;
+}
+
+.myButton{
+    background-color: #ff77518b;
+    border: 1px solid #ff775146;
+}
+
+.creation-date{
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.col{
+    margin-right: 10px;
+}
+
+.center{
+    margin: 0 auto;
+}
+
+ .myButton:focus,
+ .myButton:active
+ {
+     border: #fb3d285f 1px solid;
+     box-shadow: none;
+ }
+
+.card-title{
+    font-family: 'Lobster Two', cursive;
+}
+

@@ -9,7 +9,7 @@ function append(parent, el) {
 function createImg(article, div){
     let img = createNode("img");
     img.src = article.imageUrl;
-    img.classList.add("img");
+    img.classList.add("img", "d-none", "d-md-block");
     let imgWrapper = createNode("div");
     imgWrapper.classList.add("img-wrapper");
     append(div, imgWrapper);
@@ -18,7 +18,7 @@ function createImg(article, div){
 
 function createTitle(article, div){
     let title = createNode("h1");
-    title.classList.add("title");
+    title.classList.add("articleTitle", "my-2", "fst-italic");
     title.innerHTML = `${article.title}`;
     append(div, title);
 }

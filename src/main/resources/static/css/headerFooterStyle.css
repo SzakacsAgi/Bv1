@@ -70,11 +70,27 @@ header{
      margin-right: 10px;
  }
 
- .instragram{
+ .instagram{
      margin-left: 7px;
  }
 
  footer i:hover{
     cursor: pointer;
  }
+
+ .navbar-toggler-icon{
+    display: inline;
+ }
+
+ .fa-bars{
+    color: #fb3d285f;
+ }
+
+ .navbar-toggler:focus,
+ .navbar-toggler:active,
+ .navbar-toggler-icon:focus {
+     border: #fb3d285f 1px solid;
+     box-shadow: none;
+ }
+
 
