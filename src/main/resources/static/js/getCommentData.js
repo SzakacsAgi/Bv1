@@ -1,7 +1,6 @@
 ﻿function loadCommentsData() {
     var id = sessionStorage.getItem("articleId");
     const url = 'http://localhost:8080/blogi/api/articles/' + id + '/comments';
-    console.log(id);
     fetch(url)
     .then((resp) => resp.json())
     .then(function(data) {
